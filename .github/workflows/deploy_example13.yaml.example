@@ -6,8 +6,8 @@ jobs:
   first_job:
     name: Test
     runs-on: ubuntu-latest
-    outputs:
-      output_key: ${{ steps.step_1.outputs.my_variable }}
+    env:
+      NAME: CodigoFacilito
 
     steps:
       - name: Working dir
@@ -21,9 +21,6 @@ jobs:
     needs: first_job
     runs-on: ubuntu-latest
 
-    env:
-      OUTPUT_ENVAR: ${{ needs.first_job.outputs.output_key }}
-
     steps:
       - name: Hello world
-        run: echo "$OUTPUT_ENVAR"
+        run: echo "Hello World ${{ github.ref }}"
