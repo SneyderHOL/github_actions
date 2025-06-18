@@ -1,0 +1,33 @@
+name: Deploy to server
+
+on: push
+
+jobs:
+  first_job:
+    name: Test
+    runs-on: ubuntu-latest
+    outputs:
+      output_key: ${{ steps.step_1.outputs.my_variable }}
+
+    steps:
+      - name: Generate artifact
+        run: |
+          echo "Test file, hello" >> test.log
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-file
+          path: test.log
+
+  second_job:
+    needs: first_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: test-file
+      
+      - name: Cat file
+        run: cat test.log
