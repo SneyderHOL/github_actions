@@ -4,7 +4,6 @@ on: push
 
 jobs:
   first_job:
-    name: Test
     runs-on: ubuntu-latest
     env:
       NAME: CodigoFacilito
