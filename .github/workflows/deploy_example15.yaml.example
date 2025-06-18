@@ -19,15 +19,3 @@ jobs:
         with:
           name: test-file
           path: test.log
-
-  second_job:
-    needs: first_job
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: test-file
-      
-      - name: Cat file
-        run: cat test.log
