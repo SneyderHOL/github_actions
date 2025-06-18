@@ -10,20 +10,12 @@ jobs:
       output_key: ${{ steps.step_1.outputs.my_variable }}
 
     steps:
-      - name: Working dir
-        id: step_1
-        run: echo "my_variable=Hello World" >> $GITHUB_OUTPUT
+      - name: Generate artifact
+        run: |
+          echo "Test file, hello" >> test.log
 
-      - name: Get message
-        run: echo "${{ steps.step_1.outputs.my_variable }}"
-
-  second_job:
-    needs: first_job
-    runs-on: ubuntu-latest
-
-    env:
-      OUTPUT_ENVAR: ${{ needs.first_job.outputs.output_key }}
-
-    steps:
-      - name: Hello world
-        run: echo "$OUTPUT_ENVAR"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-file
+          path: test.log
