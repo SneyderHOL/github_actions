@@ -17,5 +17,4 @@ jobs:
 
     steps:
       - name: Hello world
-        if: false
         run: echo "Hello World Second"
